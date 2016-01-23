@@ -1,0 +1,17 @@
+Personal Reflection for Udacity review.
+How long did you spend working on this project?
+About an hour
+What was the most rewarding challenge you conquered?
+Creating, expanding the given specifications and implementing my own features
+to the project.
+What two additional features did you build? Why?
+It is always good to collect more data about each business operation so that
+they can be analyzed to see trends. Therefore, I have added ways to measure
+returns and complaints to make our system more oriented towards the customers.
+- Return system for keeping track of returns.
+    - with time constraint of a week. The transactionreturn raises an error
+        if the return didn't happen within a week of purchase
+- Complaint class for keeping track of complaints
+Where do you still have room to grow?
+Right now, everything is saved in memory which wouldn't make sense in a real system
+which needs to persist the data in a database like MySQL or MongoDB
