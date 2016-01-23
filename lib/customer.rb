@@ -13,7 +13,7 @@ class Customer
         end
     end
     def add_to_customers
-        # check duplicate product
+        # check for duplicate customer by name
         for customer in @@customers
             if (customer.name == @name)
                 raise DuplicateCustomerError, "'#{@name}' already exists."
@@ -23,5 +23,13 @@ class Customer
     end
     def self.all
         @@customers
+    end
+    def purchase(product)
+        # check if product is available for purchase
+        if (product.in_stock?)
+            transaction = Transaction.new(self, product)
+        else
+            raise OutOfStockError, "#{product.title} is out of stock."
+        end
     end
 end

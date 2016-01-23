@@ -2,6 +2,8 @@ require_relative "lib/errors"
 require_relative "lib/customer"
 require_relative "lib/product"
 require_relative "lib/transaction"
+require_relative "lib/purchasereturn"
+require_relative "lib/complaint"
 
 # PRODUCTS
 Product.new(title: "LEGO Iron Man vs. Ultron", price: 22.99, stock: 55)
@@ -43,23 +45,30 @@ puts walter.name # Should return "Walter Latimer"
 
 # TRANSACTIONS
 
-# transaction = Transaction.new(walter, nanoblock)
+transaction = Transaction.new(walter, nanoblock)
 
-# puts transaction.id # Should return 1
-# puts transaction.product == nanoblock # Should return true
-# puts transaction.product == firehouse # Should return false
-# puts transaction.customer == walter # Should return true
+puts transaction.id # Should return 1
+puts transaction.product == nanoblock # Should return true
+puts transaction.product == firehouse # Should return false
+puts transaction.customer == walter # Should return true
 
-# puts nanoblock.stock # Should return 11
+puts nanoblock.stock # Should return 11
 
 # PURCHASES
 
-# puts walter.purchase(nanoblock)
+puts walter.purchase(nanoblock)
 
-# puts Transaction.all.count # Should return 2
+puts Transaction.all.count # Should return 2
 
-# transaction2 = Transaction.find(2)
-# puts transaction2.product == nanoblock # Should return true
+transaction2 = Transaction.find(2)
+puts transaction2.product == nanoblock # Should return true
 
-# walter.purchase(firehouse)
+#walter.purchase(firehouse)
 # Should return OutOfStockError: 'LEGO Firehouse Headquarter' is out of stock.
+
+# TDD: Test Cases for TransactionReturn and Complaint
+complaint1 = Complaint.new(reason: "Product was not what I had desired")
+walter.transactionreturn(nanoblock, complaint1)
+
+puts Complaint.all.count    # Should return 1
+puts nanoblock.stock        # should return 12

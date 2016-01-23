@@ -1,5 +1,6 @@
 class Product
-    attr_reader :title, :price, :stock
+    attr_reader :title, :price
+    attr_accessor :stock
     @@products = []
     def initialize(options={})
         @title = options[:title]
@@ -11,7 +12,7 @@ class Product
         @@products
     end
     def add_to_products
-        # check duplicate product
+        # check for duplicate product by title
         for product in @@products
             if (product.title == @title)
                 raise DuplicateProductError, "#{@title} already exists."
