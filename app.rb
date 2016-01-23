@@ -2,7 +2,7 @@ require_relative "lib/errors"
 require_relative "lib/customer"
 require_relative "lib/product"
 require_relative "lib/transaction"
-require_relative "lib/purchasereturn"
+require_relative "lib/transactionreturn"
 require_relative "lib/complaint"
 
 # PRODUCTS
@@ -67,8 +67,8 @@ puts transaction2.product == nanoblock # Should return true
 # Should return OutOfStockError: 'LEGO Firehouse Headquarter' is out of stock.
 
 # TDD: Test Cases for TransactionReturn and Complaint
-complaint1 = Complaint.new(reason: "Product was not what I had desired")
-walter.transactionreturn(nanoblock, complaint1)
+walter.transactionreturn(nanoblock, reason: "Product was not what I had desired")
 
 puts Complaint.all.count    # Should return 1
-puts nanoblock.stock        # should return 12
+puts Complaint.find(1).reason   # Should return reason for complaint
+puts nanoblock.stock        # should return 11

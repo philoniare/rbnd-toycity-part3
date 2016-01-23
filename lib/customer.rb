@@ -1,5 +1,5 @@
 class Customer
-    attr_reader :name
+    attr_reader :name, :purchase_date
     @@customers = []
     def initialize(options={})
         @name = options[:name]
@@ -27,9 +27,14 @@ class Customer
     def purchase(product)
         # check if product is available for purchase
         if (product.in_stock?)
-            transaction = Transaction.new(self, product)
+            transaction = Transaction.new(self, product, Time.now)
         else
             raise OutOfStockError, "#{product.title} is out of stock."
         end
+    end
+    def transactionreturn(product, options={})
+        # check if return date hasn't expired
+        reason = options[:reason]
+        return1 = TransactionReturn.new(self, product, reason: reason)
     end
 end
