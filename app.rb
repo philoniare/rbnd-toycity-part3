@@ -45,8 +45,8 @@ puts walter.name # Should return "Walter Latimer"
 
 # TRANSACTIONS
 
-transaction = Transaction.new(walter, nanoblock)
-
+transaction = Transaction.new(walter, nanoblock, Time.now)
+puts transaction.transaction_date   # Should return Transaction time
 puts transaction.id # Should return 1
 puts transaction.product == nanoblock # Should return true
 puts transaction.product == firehouse # Should return false
@@ -67,8 +67,12 @@ puts transaction2.product == nanoblock # Should return true
 # Should return OutOfStockError: 'LEGO Firehouse Headquarter' is out of stock.
 
 # TDD: Test Cases for TransactionReturn and Complaint
-walter.transactionreturn(nanoblock, reason: "Product was not what I had desired")
+transaction_id = transaction.id
+walter.transactionreturn(nanoblock, transaction_id, reason: "Product was not what I had desired")
 
 puts Complaint.all.count    # Should return 1
 puts Complaint.find(1).reason   # Should return reason for complaint
 puts nanoblock.stock        # should return 11
+
+
+# Should return ReturnDateExpired

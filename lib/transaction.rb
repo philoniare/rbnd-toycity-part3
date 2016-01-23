@@ -1,12 +1,12 @@
 class Transaction
-    attr_reader :id, :product, :customer, :purchase_date
+    attr_reader :id, :product, :customer, :transaction_date
     @@id = 1
     @@transactions = []
     def initialize(customer, product, purchase_date)
         @customer = customer
         @product = product
         @product.stock = @product.stock - 1
-        @purchase_date = purchase_date
+        @transaction_date = purchase_date
         @id = @@id
         @@transactions << self
         @@id += 1
@@ -17,6 +17,7 @@ class Transaction
                 return transaction
             end
         end
+        raise TransactionNotFound, "Transaction with id: #{id} was not found."
     end
     def self.all
         @@transactions

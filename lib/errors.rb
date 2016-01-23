@@ -6,3 +6,5 @@ class OutOfStockError < StandardError
 end
 class ReturnDateExpired < StandardError
 end
+class TransactionNotFound < StandardError
+end

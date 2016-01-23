@@ -32,9 +32,18 @@ class Customer
             raise OutOfStockError, "#{product.title} is out of stock."
         end
     end
-    def transactionreturn(product, options={})
-        # check if return date hasn't expired
-        reason = options[:reason]
-        return1 = TransactionReturn.new(self, product, reason: reason)
+    def transactionreturn(product, transaction_id, options={})
+        # check if return date hasn't expired,
+        #   for simplicity, customer can return a purchased product within a week
+
+        # find the transaction from records
+        week_in_seconds = 7 * 24 * 60 * 60 * 60
+        transaction = Transaction.find(transaction_id)
+        if(transaction.transaction_date - Time.now > week_in_seconds)
+            raise ReturnDateExpired, "Return date has already expired. Return is void."
+        else
+            reason = options[:reason]
+            return1 = TransactionReturn.new(self, product, reason: reason)
+        end
     end
 end
